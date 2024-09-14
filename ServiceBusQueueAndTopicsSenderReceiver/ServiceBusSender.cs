@@ -5,10 +5,35 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 using System.Transactions;
 
-#region Addingrequiredservices
 ServiceCollection services = new ServiceCollection();
+
+#region ServiceBusClientInstanceUsingClientSecret
+
+// scenerio: for example application sending message to service bus, 
+// step 1: create app registeration and generate clientsecret
+// step 2: create service bus and assign Azure Service Bus Data Sender role to the client id using azure cli commends
+// step 3: use following comments to connect
+
+//string tenentId = string.Empty;
+//string clientid = string.Empty;
+//string clientSecret = string.Empty;
+
+//ClientSecretCredential credential = new ClientSecretCredential(tenentId, clientid, clientSecret);
+//// serivice bus namespace 
+//services.AddSingleton(new ServiceBusClient("learning-servicebus.servicebus.windows.net", credential));
+//ServiceProvider serviceProvider = services.BuildServiceProvider();
+#endregion
+
+#region ServiceBusClientInstanceUsingMangedIdentity
+// DefaultAzureCredential will check credentials lot of ways, when we use visual studion it will take from logged in user  
+// ManagedIdentity is used to communicate between azure resources without using client secrets
 // serivice bus namespace 
-services.AddSingleton(new ServiceBusClient("learning-servicebus.servicebus.windows.net", new DefaultAzureCredential()));
+services.AddSingleton(new ServiceBusClient("learning-servicebus.servicebus.windows.net", new DefaultAzureCredential(
+    new DefaultAzureCredentialOptions
+{
+    ManagedIdentityClientId = ""
+})));
+
 ServiceProvider serviceProvider = services.BuildServiceProvider();
 #endregion
 

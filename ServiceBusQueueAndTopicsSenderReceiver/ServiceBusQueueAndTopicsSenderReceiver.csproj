@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ServiceBusSender.cs" />
+    <Compile Remove="ServiceBusReceiver.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="ServiceBusSender.cs" />
+    <None Include="ServiceBusReceiver.cs" />
   </ItemGroup>
 
 </Project>
